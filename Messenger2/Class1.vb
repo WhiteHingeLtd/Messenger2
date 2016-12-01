@@ -31,12 +31,13 @@ Public Module Class1
             If Thread(2) = EmployeeID Then
                 ThreadUsers = WHLClasses.MySQL.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + Thread(1).ToString + ") ORDER BY idmessenger_threads DESC ;")
                 For Each ThreadUser As ArrayList In ThreadUsers
-                    ThreadString = ThreadString + "<br>" + EmpColl.FindEmployeeByID(Convert.ToInt32(Thread(2))).FullName
+                    ThreadString = ThreadString + "<br>" + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(2))).FullName
                 Next
             End If
             'Not our Thread so doesn't apply to us
         Next
-        Return ThreadList.Text = ThreadString
+        ThreadList.Text = ThreadString
+        Return Nothing
     End Function
 
 End Module

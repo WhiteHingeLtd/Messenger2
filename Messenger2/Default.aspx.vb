@@ -37,7 +37,10 @@ Public Class _Default
     Protected Sub Send_Click(sender As Object, e As EventArgs) Handles Send.Click
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        SendMessage(TextBox1, EmployeeID, ThreadID)
+        If Not IsNothing(TextBox1.Text) Then
+            SendMessage(TextBox1, EmployeeID, ThreadID)
+        End If
+
         'Dim theText As String = TextBox1.Text.Replace("\", "\\").Replace("'", "\'").Replace(vbCrLf, " ").Replace(vbLf, " ").Replace(vbCr, " ")
 
         'Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_messages (participantid, messagecontent, timestamp, threadid ) VALUES (" + EmployeeID.ToString + ",'" + theText + "','" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + ThreadID.ToString + ");")
