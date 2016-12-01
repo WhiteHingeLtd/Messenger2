@@ -1,4 +1,4 @@
 ﻿Imports WHLClasses
-Public Class ThreadUpdate
-
-End Class
+Public Module GlobalVariables
+    Public ActiveThreadID As Integer
+End Module

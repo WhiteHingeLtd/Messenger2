@@ -1,13 +1,9 @@
 ﻿Imports WHLClasses
-
 Public Class _Default
     Inherits Page
+
     Dim EmpCol As New EmployeeCollection
     Dim EmployeeID As Integer
-    Dim ThreadID As Integer = 1
-    Dim ThreadsEnabled As Boolean
-    Dim PageLoaded As Boolean = False
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
@@ -15,7 +11,7 @@ Public Class _Default
 
         CleanPanel(ThreadPanel)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        LoadMessages(Panel1, 1, EmployeeID)
+        LoadMessages(Panel1, ActiveThreadID, EmployeeID)
         'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
             UpdateThreads(ThreadPanel, EmployeeID)
@@ -53,7 +49,7 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         If Not IsNothing(TextBox1.Text) Then
-            SendMessage(TextBox1, EmployeeID, ThreadID)
+            SendMessage(TextBox1, EmployeeID, ActiveThreadID)
         End If
 
         'Dim theText As String = TextBox1.Text.Replace("\", "\\").Replace("'", "\'").Replace(vbCrLf, " ").Replace(vbLf, " ").Replace(vbCr, " ")
@@ -77,6 +73,7 @@ Public Class _Default
     End Sub
 
     Public Sub Contacts_Click(sender As Object, e As EventArgs) Handles Contacts.Click
+
         Session("Load") = "Contacts"
         UpdateContacts(ThreadPanel, EmployeeID)
     End Sub

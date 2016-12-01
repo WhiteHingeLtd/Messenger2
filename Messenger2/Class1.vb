@@ -1,5 +1,6 @@
 ﻿Imports WHLClasses
 Public Module Class1
+
     Public Function CheckForUserInThread(EmployeeID As Integer, threadid As Integer) As Boolean
         'Dim EmpCol As New EmployeeCollection
         'Dim EmployeeID As Integer
@@ -36,8 +37,9 @@ Public Module Class1
                 Dim label As New Button
                 Dim labelspace As New Label
                 labelspace.Text = "<br>"
-                label.ID = "Thread" + Thread(1).ToString
+                label.ID = Thread(1).ToString
                 label.Text = ThreadString
+                AddHandler label.Click, AddressOf ProcessButton
                 ThreadList.Controls.Add(label)
                 ThreadList.Controls.Add(labelspace)
                 ThreadString = ""
@@ -76,6 +78,10 @@ Public Module Class1
         Next
         Return Nothing
     End Function
+    Public Sub ProcessButton(Sender As Button, e As Object)
+        ActiveThreadID = Convert.ToInt32(Sender.ID)
+
+    End Sub
     Public Function CleanPanel(Panel As Panel)
 
         Return Nothing
@@ -90,12 +96,12 @@ Public Module Class1
 
             ThreadString = EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadLoad(1))).FullName + ":" + ThreadLoad(2).ToString + "<br>"
             Dim label As New Label
-                Dim labelspace As New Label
-                labelspace.Text = "<br><br>"
-                Label.Text = ThreadString
-                    Panel.Controls.Add(label)
-                    Panel.Controls.Add(labelspace)
-                    ThreadString = ""
+            Dim labelspace As New Label
+            labelspace.Text = "<br>"
+            label.Text = ThreadString
+            Panel.Controls.Add(label)
+            Panel.Controls.Add(labelspace)
+            ThreadString = ""
 
 
             'Not our Thread so doesn't apply to us

@@ -1,11 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="Messenger2._Default" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="jumbotron">
-        <h1>Messenger</h1>
-        <p class="lead">First build of the messenger test platform.</p>
-    </div>
-
     <div>&nbsp;<table width="1488" height="324" border="0">
     <tbody>
       <tr>
@@ -19,7 +14,7 @@
             </asp:Panel>
           </th>
         <td style="height: 206px">
-            <asp:Panel ID="Panel1" runat="server">
+            <asp:Panel ID="Panel1" runat="server" ScrollBars="Auto">
             </asp:Panel>
           </td>
 
