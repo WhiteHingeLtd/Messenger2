@@ -6,6 +6,15 @@ Messenger2
 </name>
 </assembly>
 <members>
+<member name="F:Messenger2._Default._Timer1">
+<summary>
+Timer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:Messenger2._Default._ThreadList">
 <summary>
 ThreadList control.
@@ -15,9 +24,45 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:Messenger2._Default._Contacts">
+<summary>
+Contacts control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Messenger2._Default._Threads">
+<summary>
+Threads control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:Messenger2._Default._ThreadPanel">
 <summary>
 ThreadPanel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Messenger2._Default._Panel1">
+<summary>
+Panel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Messenger2._Default._UpdatePanel1">
+<summary>
+UpdatePanel1 control.
 </summary>
 <remarks>
 Auto-generated field.

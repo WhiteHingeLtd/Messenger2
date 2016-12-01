@@ -18,26 +18,94 @@ Public Module Class1
         Dim theText As String = TextBox.Text.Replace("\", "\\").Replace("'", "\'").Replace(vbCrLf, " ").Replace(vbLf, " ").Replace(vbCr, " ")
 
         Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_messages (participantid, messagecontent, timestamp, threadid ) VALUES (" + EmployeeID.ToString + ",'" + theText + "','" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + threadid.ToString + ");")
-
-        Return TextBox.Text = ""
+        TextBox.Text = ""
+        Return Nothing
     End Function
-    Public Function UpdateThreads(ThreadList As Label, EmployeeID As Integer)
+    Public Function UpdateThreads(ThreadList As Panel, EmployeeID As Integer)
         Dim EmpColl As New EmployeeCollection
         Dim ThreadUpdates As New ArrayList
         Dim ThreadUsers As New ArrayList
         Dim ThreadString As String = ""
-        ThreadUpdates = WHLClasses.MySQL.SelectData("SELECT * FROM whldata.messenger_threads WHERE (participantid=" + EmployeeID.ToString + ") ORDER BY idmessenger_threads DESC ;")
+        ThreadUpdates = WHLClasses.MySQL.SelectData("SELECT a.*,b.messagecontent as Message,b.Timestamp as SendTime,b.participantid as sender FROM 	whldata.messenger_threads a Left Join (SELECT m1.* FROM whldata.messenger_messages m1 LEFT JOIN whldata.messenger_messages m2 ON (m1.threadid = m2.threadid AND m1.messageid < m2.messageid) WHERE m2.messageid IS NULL) b on b.threadid=a.ThreadID WHERE (a.participantid='" + EmployeeID.ToString + "') ORDER BY b.timestamp DESC;")
         For Each Thread As ArrayList In ThreadUpdates
             If Thread(2) = EmployeeID Then
                 ThreadUsers = WHLClasses.MySQL.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + Thread(1).ToString + ") ORDER BY idmessenger_threads DESC ;")
                 For Each ThreadUser As ArrayList In ThreadUsers
-                    ThreadString = ThreadString + "<br>" + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(2))).FullName
+                    ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName + ", "
                 Next
+                Dim label As New Button
+                Dim labelspace As New Label
+                labelspace.Text = "<br>"
+                label.ID = "Thread" + Thread(1).ToString
+                label.Text = ThreadString
+                ThreadList.Controls.Add(label)
+                ThreadList.Controls.Add(labelspace)
+                ThreadString = ""
+
             End If
             'Not our Thread so doesn't apply to us
         Next
-        ThreadList.Text = ThreadString
+        'ThreadList.Text = ThreadString
+        Dim DateTime As String = "<br><br>Last Updated:" + Now.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim DateTimeLabel As New Label
+        DateTimeLabel.Text = DateTime
+        ThreadList.Controls.Add(DateTimeLabel)
+
         Return Nothing
     End Function
+    Public Function UpdateContacts(ContactList As Panel, EmployeeID As Integer)
+        Dim EmpColl As New EmployeeCollection
+        Dim ContactName As String
+        Dim ContactList1 As New ArrayList
+        ContactName = ""
+        For Each employee As Employee In EmpColl.Employees
+            If Not employee.PayrollId = EmployeeID Then
 
+                If employee.Visible Then
+
+                    ContactName = employee.FullName
+                    Dim label As New Button
+                    Dim labelspace As New Label
+                    labelspace.Text = "<br>"
+                    label.Text = ContactName
+                    ContactList.Controls.Add(label)
+                    ContactList.Controls.Add(labelspace)
+                    ContactName = ""
+                End If
+            End If
+        Next
+        Return Nothing
+    End Function
+    Public Function CleanPanel(Panel As Panel)
+
+        Return Nothing
+    End Function
+    Public Function LoadMessages(Panel As Panel, Thread As Integer, employeeid As Integer)
+        Dim EmpColl As New EmployeeCollection
+        Dim ThreadUpdates As New ArrayList
+        Dim ThreadUsers As New ArrayList
+        Dim ThreadString As String = ""
+        ThreadUpdates = WHLClasses.MySQL.SelectData("SELECT * from whldata.messenger_messages where threadid = '" + Thread.ToString + "' order by timestamp DESC;")
+        For Each ThreadLoad As ArrayList In ThreadUpdates
+
+            ThreadString = EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadLoad(1))).FullName + ":" + ThreadLoad(2).ToString + "<br>"
+            Dim label As New Label
+                Dim labelspace As New Label
+                labelspace.Text = "<br><br>"
+                Label.Text = ThreadString
+                    Panel.Controls.Add(label)
+                    Panel.Controls.Add(labelspace)
+                    ThreadString = ""
+
+
+            'Not our Thread so doesn't apply to us
+        Next
+        'ThreadList.Text = ThreadString
+        Dim DateTime As String = "<br><br>Last Updated:" + Now.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim DateTimeLabel As New Label
+        DateTimeLabel.Text = DateTime
+        Panel.Controls.Add(DateTimeLabel)
+
+        Return Nothing
+    End Function
 End Module

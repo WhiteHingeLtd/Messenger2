@@ -5,20 +5,35 @@ Public Class _Default
     Dim EmpCol As New EmployeeCollection
     Dim EmployeeID As Integer
     Dim ThreadID As Integer = 1
+    Dim ThreadsEnabled As Boolean
+    Dim PageLoaded As Boolean = False
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
         Dim WhichThreads As New ArrayList
-        'SomethingUseful.Text = EmpCol.FindEmployeeByADUser(UserNameReplaced).FullName
-        EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        UpdateThreads(ThreadList, EmployeeID)
-        If CheckForUserInThread(EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId, ThreadID) = True Then
-            '  SomethingUseful.Text = "You are in this Thread"
 
-        ElseIf CheckForUserInThread(EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId, ThreadID) = False Then
-            ' SomethingUseful.Text = "You aren't in this thread"
+        CleanPanel(ThreadPanel)
+        EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
+        LoadMessages(Panel1, 1, EmployeeID)
+        'If ThreadsEnabled = False Then
+        If Session("Load") = "Threads" Then
+            UpdateThreads(ThreadPanel, EmployeeID)
+            Session("Load") = "Threads"
         End If
+        If Session("Load") = "Contacts" Then
+            UpdateContacts(ThreadPanel, EmployeeID)
+            Session("Load") = "Contacts"
+        End If
+        'ElseIf ThreadsEnabled = True Then
+        '    UpdateContacts(ThreadPanel, EmployeeID)
+        'End If
+        'If CheckForUserInThread(EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId, ThreadID) = True Then
+        '    SomethingUseful.Text = "You are in this Thread"
+
+        'ElseIf CheckForUserInThread(EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId, ThreadID) = False Then
+        '    SomethingUseful.Text = "You aren't in this thread"
+        'End If
         'WhichThreads = WHLClasses.MySQL.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
 
         'For Each Meme As ArrayList In WhichThreads
@@ -53,5 +68,21 @@ Public Class _Default
         ''UpdateNewMessages()
         'TextBox1.Text = responseInsert.ToString
     End Sub
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'UpdateContacts(ThreadPanel, EmployeeID)
 
+        '
+        'UpdateContacts(ThreadPanel, EmployeeID)
+
+    End Sub
+
+    Public Sub Contacts_Click(sender As Object, e As EventArgs) Handles Contacts.Click
+        Session("Load") = "Contacts"
+        UpdateContacts(ThreadPanel, EmployeeID)
+    End Sub
+
+    Public Sub Threads_Click(sender As Object, e As EventArgs) Handles Threads.Click
+        Session("Load") = "Threads"
+        UpdateThreads(ThreadPanel, EmployeeID)
+    End Sub
 End Class
