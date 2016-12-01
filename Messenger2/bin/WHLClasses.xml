@@ -1,0 +1,485 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WHLClasses
+</name>
+</assembly>
+<members>
+<member name="T:WHLClasses.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Close">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Close_White">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.FragileAsset">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.LinnUser">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Maximise">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Minimise">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.NewItem_Exploerr">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Nouser">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.Partyloader">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.PPI_24">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.PPI_48">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.prepacklabel">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:WHLClasses.My.Resources.Resources.UnMaximise">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:WHLClasses.NetCom.GenericServer">
+ <summary>
+ LADIES AND GENTLEMEN
+ 
+ YOU ARE LOOKING
+ 
+ AT THE WORST CLIENT/SERVER INTERACTION
+ 
+ IN THE WORLD!!!!!
+ 
+         - Kanye West. Probably.
+
+ </summary>
+</member>
+<member name="F:WHLClasses.NetCom.NetPacket.Data">
+ <summary>
+ The objecttype in this object must be serializable.
+ </summary>
+</member>
+<member name="T:WHLClasses.NetCom.NetObjects.PicklistLoadData">
+ <summary>
+ Contains data for the client tablets to load a set of picklists.
+ </summary>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.BorderWidth">
+ <summary>
+ The thickness of the stroke of the border. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.Title">
+ <summary>
+ The text which appears at the edge of the control.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.HighlightOnFocus">
+ <summary>
+ A flag which states whether the control will highlight when a child control is focussed.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.HighlightNotBorderColor">
+ <summary>
+ The color of the border of the panel.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.HighlightBorderColor">
+ <summary>
+ The color of the border of the panel when the panel is highlighted. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.HighlightBackgroundColor">
+ <summary>
+ The background color of the panel when the panel is highlighted. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.Controls.BPanel.HighlightNotBackgroundColor">
+ <summary>
+ The background color of the panel. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:WHLClasses.NewRota.RotaAttendance">
+ <summary>
+ Rota attendance object. Contains things about what time they clocked in/out/ used card or whatever
+ </summary>
+</member>
+<member name="T:WHLClasses.NewRota.RotaEntry">
+ <summary>
+ RotaEntry Class. Contains properties about a rota which can be used 
+ </summary>
+</member>
+<member name="T:WHLClasses.NewRota.Rotashift">
+ <summary>
+ States which the rota can be in. Only In/Out/Holiday really. 
+ </summary>
+</member>
+<member name="F:WHLClasses.NewRota.Rotashift.isFixed">
+ <summary>
+ If this is true, do not allow the shift to be changed. This is only true on Mandatory bank holdays at the time of wrting '04/05/2016     
+ </summary>
+</member>
+<member name="T:WHLClasses.NewRota.Shifts">
+ <summary>
+ Collection of shifts. You'll need this if you want to display the rota, or let the user do a thing. 
+ </summary>
+</member>
+<member name="M:WHLClasses.Fees.FeeManager.GetPostagePrice(System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+ <summary>
+ Gets the postage price form whldata.postagecosts for items based on the supplied data. 
+ </summary>
+ <param name="Weight">The weight in grams of the pack. </param>
+ <param name="Packet">True if the item is being posted as packet, false if as large letter. </param>
+ <param name="Courier">True if courier is to be used, false if not. </param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Fees.FeeManager.GetLabourPrice(System.String)">
+ <summary>
+ Gets the price for the given labour code. 
+ </summary>
+ <param name="LabourCode">The labour code. Should have been a selection in a dropdown where applicable. </param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Fees.FeeManager.GetEnvelopePrice(WHLClasses.Envelope)">
+ <summary>
+ Gets the price of the envelope, adjusted to include the price of 
+ </summary>
+ <param name="Envelope"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Fees.FeeManager.GetVATCost(System.Single)">
+ <summary>
+ Get the VAT charged on the item. 
+ </summary>
+ <param name="RetailPrice"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Fees.FeeManager.GetListingFees(System.Single)">
+ <summary>
+ Get the ebay lsiting fees (including discounts, paypal surcharges etc) associated with the product
+ </summary>
+ <param name="RetailPrice"></param>
+ <returns></returns>
+</member>
+<member name="T:WHLClasses.Hardware.WakeOnLan">
+ <summary>
+ Provides methods and otehr bits for waking PCs over the network.
+ </summary>
+</member>
+<member name="M:WHLClasses.Hardware.WakeOnLan.generatePacket(System.String,System.Byte[]@)">
+ <summary>
+ I have no fucking idea how this works. It's literally magic.
+ </summary>
+ <param name="MAC">A mac address. </param>
+ <param name="packet">A packet (or rather, a reference to one)</param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Hardware.WakeOnLan.GetWOLClients(System.String)">
+ <summary>
+ Query the database for WOL clients, optionally searchable by the recorded hostname. Return
+ </summary>
+ <param name="NameSearch"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Linnworks.Orders.ExtendedOrder.AddTrayToList(System.String,System.String)">
+ <summary>
+ Tray tracking. Please add the relevant tray ID followed by the state PICKING, PICKED, PACKING or PACKED.
+ The state will automatically trim and set the string to uppercase letters for you.
+ This will hopefully help in finding the root of order disappearances from trays. Hopefully.
+ </summary>
+ <param name="TrayID"></param>
+ <param name="CurrentState"></param>
+</member>
+<member name="T:WHLClasses.EnvelopeCollection">
+ <summary>
+ 06/01/2015 - EnvelopeCollection: A structure which acts as a list of envelope objects and also has some methods for handy enveloping.
+ </summary>
+</member>
+<member name="M:WHLClasses.MiscFunctions.Misc.PingServerTime(System.String,System.Int32)">
+ <summary>
+ Gets the time taken for a response from a server. Returns -1 tick if no response. Waits maximum of 100ms for a response.
+ </summary>
+ <param name="server">The host you want to ping</param>
+ <returns>Amount of time taken for a response. If there was no response, it returns -1 tick.</returns>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.SortByBinrack">
+ <summary>
+ Shitty old sort method. Pls no.
+ </summary>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.SortByNewLocations(WHLClasses.Orders.SortDirection)">
+ <summary>
+ Sorts the orders by the new locations used in the system - Specifically by the Location IDs.
+ </summary>
+ <param name="Direction">Specifies the direction which the orders are sorted in. Defaults to ascending, and you're probably never going to use the descending but the option is there if you need it.</param>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.GetOrdersByWarehouse(System.Int32,System.Boolean)">
+ <summary>
+ Gets orders where the items on the order are in the specified warehouse. Also allows you to filter out ones in another warehouse if you likr.
+ </summary>
+ <param name="WarehouseID">The warehouse ID you want to find orders for</param>
+ <param name="AllowSplits">Whethewr you want to get Split warehouse orders. Defaults to False.</param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.GetSplits">
+ <summary>
+ Gets the splits from the current defeinition, which can then be used to find and print the Split Transfer List. TM
+ </summary>
+ <returns>A bunvh of orders which are splits.</returns>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.GetByPickType(WHLClasses.Orders.ItemPicklistType)">
+ <summary>
+ Filters orders and returns thouse which have the specified type of orders within.
+ </summary>
+ <param name="PickingType"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.GetByStatus(WHLClasses.Orders.OrderStatus)">
+ <summary>
+ Filters orders and returns only those matching the specified OrderStatus.
+ </summary>
+ <param name="Status"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.Orders.OrderDefinition.GetBoxedOrders(System.Boolean)">
+ <summary>
+ Filters orders and gets only those matching the specified state ofbox... requirement?
+ </summary>
+ <param name="NeedsBox"></param>
+ <returns></returns>
+</member>
+<member name="T:WHLClasses.Bakery">
+ <summary>
+ What do bakerys bake? Bread. And what does bread turn into when you heat it? Toast.
+ </summary>
+</member>
+<member name="M:WHLClasses.Bakery.CreateSimpleToast(System.Int32,System.String,System.String,System.Object@,System.Windows.Forms.ToolTipIcon)">
+ <summary>
+ Creates a simple toast using the classic toasting method.
+ </summary>
+ <param name="Timeout">The time the toast will live for in Milliseconds.</param>
+ <param name="Title">The title of the toast</param>
+ <param name="Body">The content of the toast.</param>
+ <param name="Icon">The icon the toast will have</param>
+ <param name="Handler">Some data which will returned in the ToastClicked event of the bakery.</param>
+</member>
+<member name="M:WHLClasses.Totals.GetDailyTotals(System.DateTime)">
+ <summary>
+ 
+ </summary>
+ <param name="RequestedDate">The date you want data for. </param>
+ <returns>Returns a DailyTotalObject containing more useful data. </returns>
+</member>
+<member name="T:WHLClasses.SQL.MySQL_New">
+ <summary>
+ A group of functions which encapsulate the new MySQL functions. Powered by dictionaries and shit. 
+ </summary>
+</member>
+<member name="M:WHLClasses.SQL.MySQL_New.GetData(System.String)">
+ <summary>
+ Returns data in accordance with the query you provide.
+ </summary>
+ <param name="Query">The query you have provided.</param>
+ <returns>Returns a list of dictionaries where the dictionary key is the column name, and the value is.... the value!</returns>
+</member>
+<member name="T:WHLClasses.SpeechFactory">
+ <summary>
+ The natural language speech factory. Brought to you probably by Hazel.
+ </summary>
+</member>
+<member name="F:WHLClasses.SpeechFactory._ScanMixedTag">
+ <summary>
+ Contains strings for "Scan the mixed tag you're using"
+ </summary>
+</member>
+<member name="T:WHLClasses.WarehouseAnalytics.AnalyticBase">
+ <summary>
+ Contains all of the analytics data used with SurfacePicker
+ </summary>
+</member>
+<member name="M:WHLClasses.SkuCollection.SearchLocationIDs(System.Int32)">
+ <summary>
+ Fast function which finds items which have the provided ID
+ </summary>
+ <param name="LocationID"></param>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.SkuCollection.StartWorker(System.Boolean)">
+ <summary>
+ Do not run this on the main thread. It is only public for testing purposes.
+ </summary>
+</member>
+<member name="M:WHLClasses.SkuCollection.AdvancedSearch(System.String,System.String,System.String,System.Boolean,System.String)">
+ <summary>
+ This funciton does some clever searching. It also probably takes a while because it does a lot of searches and comparisons. RIP IN PIECES CPU.
+ </summary>
+ <param name="Terms">The standard search terms. Enter a nothing value to return everything. </param>
+ <param name="Category">Limit the search to a category. Defaults to nothiong. </param>
+ <param name="PrimarySupplierName">Limit the search to a supplier. Defaults to nothing. </param>
+ <param name="MatchAll">Boolean value to make the results match all search terms. Defaults to True. </param>
+ <param name="Divider">Set the search term divider. Default is space. </param>
+ <returns>A collection of SKUs (in a skucollection) which meets the specified criteria. </returns>
+</member>
+<member name="M:WHLClasses.SkuCollection.FixOrder">
+ <summary>
+ Sorts out the weird ordering provided by racing threads.
+ </summary>
+</member>
+<member name="M:WHLClasses.SkuCollection.MakeMixdown">
+ <summary>
+ Mixes everything down so you only get one packsize per shortsku. Usually the smallest available, I.E. singles.
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:WHLClasses.WhlSKU">
+ <summary>
+ GOOD LUCK WITH THIS ONE. Refertou your comprehensive guide to bad programming for more info on this one.
+ </summary>
+</member>
+<member name="M:WHLClasses.WhlSKU.SaveChanges(WHLClasses.Employee,System.String)">
+ <summary>
+ This function will save all properties to the database.
+ </summary>
+ <returns>Returns a list of strings which display the update status of each element of the product in a user fiendly way.</returns>
+</member>
+<member name="M:WHLClasses.WhlSKU.CheapestSupplier">
+ <summary>
+ Returns the cheapest supplier object attached to this product.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:WHLClasses.WhlSKU.Newbie(System.Collections.ArrayList,System.Boolean)">
+ <summary>
+ Create a WHLSku from a simple arraylist from the whlnew table.
+ </summary>
+ <param name="Data">The arraylist of values from a row.</param>
+ <param name="ThrowRefreshExeptions">Whether or not to throw special exceptions, like if there is nothing in the stock table etc.</param>
+</member>
+<member name="P:WHLClasses.SKUSupplier.CaseBarcodeInner">
+ <summary>
+ barcode which can be found on inners. For some reason this is occasionally different. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.BoxCode">
+ <summary>
+ The code which appears on the box. May not be the same as the reorder code for some suppliers. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.LastModified">
+ <summary>
+ Weeks which are the "lead time"
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.LeadTime">
+ <summary>
+ Weeks which are the "lead time"
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.OutOfStock">
+ <summary>
+ The 3 character supplier code.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.Name">
+ <summary>
+ The 3 character supplier code.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.ReOrderCode">
+ <summary>
+ The re-order code for the supplier which identifies the product on the supplier's site. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.Price">
+ <summary>
+ The last recorded price that the item was ordered for.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.CaseBarcode">
+ <summary>
+ The barcode on the outer box. this is sometimes the same as the normal barcode. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.Barcode">
+ <summary>
+ The barcode on the product itself.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.Discontinued">
+ <summary>
+ This value is set to true of the product has been discontinued. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:WHLClasses.SKUSupplier.Primary">
+ <summary>
+ This values states whether this supplier is the primary one or not.
+ </summary>
+ <returns></returns>
+</member>
+</members>
+</doc>
