@@ -1,5 +1,5 @@
 ﻿Imports WHLClasses
-Public Module Class1
+Public Module Functions
 
     Public Function CheckForUserInThread(EmployeeID As Integer, threadid As Integer) As Boolean
         'Dim EmpCol As New EmployeeCollection
@@ -53,6 +53,19 @@ Public Module Class1
         DateTimeLabel.Text = DateTime
         ThreadList.Controls.Add(DateTimeLabel)
 
+        Return Nothing
+    End Function
+    Public Function ListThreadUsers(ThreadID As Integer, Label As Label)
+        Dim ThreadUsers As New ArrayList
+        Dim EmpColl As New EmployeeCollection
+        Dim ThreadString As String
+        ThreadString = ""
+        ThreadUsers = WHLClasses.MySQL.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
+        For Each ThreadUser As ArrayList In ThreadUsers
+            ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName + ", "
+        Next
+        ThreadString.TrimEnd(",")
+        Label.Text = ThreadString
         Return Nothing
     End Function
     Public Function UpdateContacts(ContactList As Panel, EmployeeID As Integer)

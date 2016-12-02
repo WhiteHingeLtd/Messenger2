@@ -12,6 +12,7 @@ Public Class _Default
         CleanPanel(ThreadPanel)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         LoadMessages(Panel1, ActiveThreadID, EmployeeID)
+        ListThreadUsers(ActiveThreadID, ActiveThreadLabel)
         'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
             UpdateThreads(ThreadPanel, EmployeeID)
@@ -75,11 +76,11 @@ Public Class _Default
     Public Sub Contacts_Click(sender As Object, e As EventArgs) Handles Contacts.Click
 
         Session("Load") = "Contacts"
-        UpdateContacts(ThreadPanel, EmployeeID)
+        'UpdateContacts(ThreadPanel, EmployeeID)
     End Sub
 
     Public Sub Threads_Click(sender As Object, e As EventArgs) Handles Threads.Click
         Session("Load") = "Threads"
-        UpdateThreads(ThreadPanel, EmployeeID)
+        'UpdateThreads(ThreadPanel, EmployeeID)
     End Sub
 End Class
