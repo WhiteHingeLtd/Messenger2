@@ -57,3 +57,4 @@ Messenger2/bin/*
 *.targets
 *.exe
 Messenger2/obj*
+.vs/Messenger2/v14/.suo

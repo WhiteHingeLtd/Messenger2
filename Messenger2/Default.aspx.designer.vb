@@ -23,15 +23,6 @@ Partial Public Class _Default
     Protected WithEvents Timer1 As Global.System.Web.UI.Timer
     
     '''<summary>
-    '''ThreadList control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ThreadList As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''Contacts control.
     '''</summary>
     '''<remarks>
@@ -59,13 +50,13 @@ Partial Public Class _Default
     Protected WithEvents ThreadPanel As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''Panel1 control.
+    '''UpdatePanel2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''UpdatePanel1 control.

@@ -11,7 +11,7 @@ Public Class _Default
 
         CleanPanel(ThreadPanel)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        LoadMessages(Panel1, ActiveThreadID, EmployeeID)
+        LoadMessages(UpdatePanel2, ActiveThreadID, EmployeeID)
         ListThreadUsers(ActiveThreadID, ActiveThreadLabel)
         'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
