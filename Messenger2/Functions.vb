@@ -121,6 +121,16 @@ Public Module Functions
 
         Return Nothing
     End Function
+    Public Function RemoveFromThread(RemovedID As Integer, ThreadID As Integer)
+        Dim OldThreadID As String = ActiveThreadID.ToString
+        Dim NewActiveID As String = OldThreadID.Replace(RemovedID.ToString, "")
+        ActiveThreadID = Convert.ToInt32(NewActiveID)
+        Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_threads (ThreadID, participantid ) VALUES ('" + ActiveThreadID.ToString + "','" + EmployeeID.ToString + "');")
+        Dim responseInsert2 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_threads set ThreadID='" + ActiveThreadID.ToString + "' WHERE ThreadID ='" + OldThreadID.ToString + "';")
+        Dim responseInsert3 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_messages set threadid='" + ActiveThreadID.ToString + "' WHERE threadid ='" + OldThreadID.ToString + "';")
+
+        Return Nothing
+    End Function
     Public Sub ProcessButton(Sender As Button, e As Object)
         ActiveThreadID = Convert.ToInt32(Sender.ID)
 
