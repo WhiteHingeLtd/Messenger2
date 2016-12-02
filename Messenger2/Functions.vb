@@ -34,17 +34,19 @@ Public Module Functions
                 For Each ThreadUser As ArrayList In ThreadUsers
                     ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName + " "
                 Next
-                Dim label As New Button
-                Dim labelspace As New Label
-                ThreadString.TrimEnd()
-                labelspace.Text = "<br>"
-                label.ID = Thread(1).ToString
-                label.Text = ThreadString
-                AddHandler label.Click, AddressOf ProcessButton
-                ThreadList.Controls.Add(label)
-                ThreadList.Controls.Add(labelspace)
-                ThreadString = ""
-
+                Try
+                    Dim LinkButton As New LinkButton
+                    Dim labelspace As New Label
+                    ThreadString.TrimEnd()
+                    labelspace.Text = "<br>"
+                    LinkButton.ID = Thread(1).ToString
+                    LinkButton.Text = ThreadString
+                    AddHandler LinkButton.Click, AddressOf ProcessButton
+                    ThreadList.Controls.Add(LinkButton)
+                    ThreadList.Controls.Add(labelspace)
+                    ThreadString = ""
+                Catch Ex As Exception
+                End Try
             End If
             'Not our Thread so doesn't apply to us
         Next
@@ -80,7 +82,7 @@ Public Module Functions
                 If employee.Visible Then
 
                     ContactName = employee.FullName
-                    Dim label As New Button
+                    Dim label As New LinkButton
                     Dim labelspace As New Label
                     label.ID = employee.PayrollId.ToString
                     labelspace.Text = "<br>"
@@ -95,7 +97,7 @@ Public Module Functions
         Next
         Return Nothing
     End Function
-    Public Sub ProcessContactButton(Sender As Button, e As Object)
+    Public Sub ProcessContactButton(Sender As LinkButton, e As Object)
         Dim employeeID As Integer
         Dim EmpCol As New EmployeeCollection
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
@@ -125,13 +127,13 @@ Public Module Functions
         Dim OldThreadID As String = ActiveThreadID.ToString
         Dim NewActiveID As String = OldThreadID.Replace(RemovedID.ToString, "")
         ActiveThreadID = Convert.ToInt32(NewActiveID)
-        Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_threads (ThreadID, participantid ) VALUES ('" + ActiveThreadID.ToString + "','" + EmployeeID.ToString + "');")
+        Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_threads (ThreadID, participantid ) VALUES ('" + ActiveThreadID.ToString + "','" + RemovedID.ToString + "');")
         Dim responseInsert2 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_threads set ThreadID='" + ActiveThreadID.ToString + "' WHERE ThreadID ='" + OldThreadID.ToString + "';")
         Dim responseInsert3 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_messages set threadid='" + ActiveThreadID.ToString + "' WHERE threadid ='" + OldThreadID.ToString + "';")
 
         Return Nothing
     End Function
-    Public Sub ProcessButton(Sender As Button, e As Object)
+    Public Sub ProcessButton(Sender As LinkButton, e As Object)
         ActiveThreadID = Convert.ToInt32(Sender.ID)
 
     End Sub
