@@ -1,4 +1,4 @@
 ﻿Imports WHLClasses
 Public Module GlobalVariables
-    Public ActiveThreadID As Integer
+    'Public ActiveThreadID As Integer
 End Module

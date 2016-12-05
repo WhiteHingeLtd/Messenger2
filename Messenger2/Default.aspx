@@ -5,15 +5,21 @@
     <tbody>
       <tr>
         <th scope="row" style="width: 512px; height: 206px;">
-            <asp:Timer ID="Timer1" runat="server" Interval="10000">
-            </asp:Timer>
             <asp:Button ID="Contacts" runat="server" Text="Contacts" />
             <asp:Button ID="Threads" runat="server" Text="Threads" />
-            <asp:Panel ID="ThreadPanel" runat="server">
-            </asp:Panel>
+            <asp:UpdatePanel ID="ContactsPanel" UpdateMode="Conditional" runat="server">
+                <ContentTemplate>
+                    <asp:Timer ID="ContactsTimer" runat="server" Interval="50">
+                    </asp:Timer>
+                </ContentTemplate>
+            </asp:UpdatePanel>
           </th>
         <td style="height: 206px; width: 748px;">
-            <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
+            <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
+                   <ContentTemplate>
+                       <asp:Timer ID="ThreadTimer" runat="server" Interval="50">
+                       </asp:Timer>
+                   </ContentTemplate>
                    <Triggers>
                    <asp:AsyncPostBackTrigger ControlID="Send" />
                  </Triggers>

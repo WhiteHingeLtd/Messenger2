@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class _Default
     
     '''<summary>
-    '''Timer1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Timer1 As Global.System.Web.UI.Timer
-    
-    '''<summary>
     '''Contacts control.
     '''</summary>
     '''<remarks>
@@ -41,13 +32,22 @@ Partial Public Class _Default
     Protected WithEvents Threads As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''ThreadPanel control.
+    '''ContactsPanel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ThreadPanel As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents ContactsPanel As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''ContactsTimer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ContactsTimer As Global.System.Web.UI.Timer
     
     '''<summary>
     '''UpdatePanel2 control.
@@ -57,6 +57,15 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''ThreadTimer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ThreadTimer As Global.System.Web.UI.Timer
     
     '''<summary>
     '''UpdatePanel1 control.
