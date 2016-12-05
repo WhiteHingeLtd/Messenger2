@@ -4,7 +4,6 @@ The new version of our intranet messaging service. Entirely web based using asp.
 Current Functionality is limited, There also currently exists no styling resulting in a clunky interface.
 
 Known Issues:
-10 second update timer, No manual refresh to update Chat/Threads
 
 _______████████__██████
 
