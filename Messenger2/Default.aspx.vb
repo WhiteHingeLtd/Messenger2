@@ -8,7 +8,7 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
         Dim WhichThreads As New ArrayList
-
+        '
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         Try
             Dim SessionThreadID As String = Session("ActiveThreadID")
