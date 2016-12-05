@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Messenger2", "Messenger2\Messenger2.vbproj", "{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Framework", "Z:\Folders\Documents\GitHub\Framework\Framework\Framework.vbproj", "{8A2B93B9-4651-40F3-BBF9-D8FD0474A719}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Framework", "..\Framework\Framework\Framework.vbproj", "{8A2B93B9-4651-40F3-BBF9-D8FD0474A719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
