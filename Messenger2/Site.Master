@@ -17,6 +17,26 @@
 
 </head>
 <body>
+    <script type="text/javascript">
+        Notification.requestPermission().then(function (result) {
+            if (result === 'denied') {
+                console.log('Permission wasn\'t granted. Allow a retry.');
+                return;
+            }
+            if (result === 'default') {
+                console.log('The permission request was dismissed.');
+                return;
+            }
+            // Do something with the granted permission.
+        });
+        function spawnNotification(theBody, theTitle) {
+            var options = {
+                body: theBody
+            }
+            var n = new Notification(theTitle, options);
+            setTimeout(n.close.bind(n), 4000);
+        }
+        </script>
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>

@@ -95,11 +95,29 @@ Partial Public Class _Default
     Protected WithEvents Send As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''ActiveThreadLabel control.
+    '''NotificationPanel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ActiveThreadLabel As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents NotificationPanel As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''Notifications control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Notifications As Global.System.Web.UI.Timer
+    
+    '''<summary>
+    '''ActiveUsers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ActiveUsers As Global.System.Web.UI.WebControls.Label
 End Class

@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="Messenger2._Default" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div style="margin-right: 120px">&nbsp;<table width="1488" height="324" border="0">
+    <script type ="text/javascript" src="Notifications.js">NotifyMe();</script>
+    
+    <div style="margin-right: 120px">&nbsp;<table border="0">
     <tbody>
       <tr>
-        <th scope="row" style="width: 512px; height: 206px;">
+           
+        <th scope="row" style="width: 512px; height: 206px;" onload="notifyMe()">
             <asp:Button ID="Contacts" runat="server" Text="Contacts" />
             <asp:Button ID="Threads" runat="server" Text="Threads" />
             <asp:UpdatePanel ID="ContactsPanel" UpdateMode="Conditional" runat="server">
@@ -37,7 +39,13 @@
             <asp:TextBox ID="TextBox1" runat="server" Height="23px" Width="424px"></asp:TextBox>
             <asp:Button ID="Send" runat="server" Text="Send" ValidateRequestMode="Disabled" style="margin-bottom: 16" />
                 <div>
-                    <asp:Label ID="ActiveThreadLabel" runat="server" Text="Label"></asp:Label>
+                    <asp:UpdatePanel ID="NotificationPanel" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Timer ID="Notifications" runat="server" Interval="60">
+                            </asp:Timer>
+                            <asp:Label ID="ActiveUsers" runat="server" Text="Active Users:"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
           </td>

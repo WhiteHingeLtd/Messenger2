@@ -1,4 +1,5 @@
 ﻿Imports WHLClasses
+
 Public Class _Default
     Inherits Page
 
@@ -8,7 +9,8 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
         Dim WhichThreads As New ArrayList
-        ''
+        Session("Load") = "Threads"
+        SendNotification(Session("ActiveThreadID"), EmployeeID)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         Try
             Dim SessionThreadID As String = Session("ActiveThreadID")
@@ -17,7 +19,7 @@ Public Class _Default
             UpdatePanel2.Update()
         Catch ex As Exception
         End Try
-        'ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveThreadLabel)
+        'ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveUsers)
         'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
             UpdateThreads(ContactsPanel, EmployeeID)
@@ -57,6 +59,7 @@ Public Class _Default
         Session("ActiveThreadID") = Convert.ToInt32(Sender.ID)
 
     End Sub
+
     Protected Sub Send_Click(sender As Object, e As EventArgs) Handles Send.Click
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
@@ -187,14 +190,20 @@ Public Class _Default
                 If employee.Visible Then
 
                     ContactName = employee.FullName
-                    Dim label As New LinkButton
+                    Dim ContactButton As New LinkButton
                     Dim labelspace As New Label
-                    label.ID = employee.PayrollId.ToString
+                    Dim ContactPanel As New Panel
+                    Dim AddToThread As New LinkButton
+                    AddToThread.Text = "Add To Current Thread"
+                    AddToThread.ID = "AddTo" + employee.PayrollId.ToString
+                    ContactButton.ID = employee.PayrollId.ToString
                     labelspace.Text = "<br>"
-                    label.Text = ContactName
-                    AddHandler label.Click, AddressOf ProcessContactButton
-                    ContactList.ContentTemplateContainer.Controls.Add(label)
-                    ContactList.ContentTemplateContainer.Controls.Add(labelspace)
+                    ContactButton.Text = ContactName
+                    AddHandler ContactButton.Click, AddressOf ProcessContactButton
+                    AddHandler AddToThread.Click, AddressOf ProcessAddButton
+                    ContactPanel.Controls.Add(ContactButton)
+                    ContactPanel.Controls.Add(AddToThread)
+                    ContactList.ContentTemplateContainer.Controls.Add(ContactPanel)
                     ContactName = ""
                     ContactList.Update()
                 End If
@@ -202,6 +211,11 @@ Public Class _Default
         Next
         Return Nothing
     End Function
+    Public Sub ProcessAddButton(Sender As LinkButton, e As Object)
+        Dim AddButtonString As String = Sender.ID
+        AddButtonString = AddButtonString.Replace("AddTo", "")
+        AddToThread(Convert.ToInt32(Session("ActiveThreadID")), AddButtonString)
+    End Sub
     Public Sub ProcessContactButton(Sender As LinkButton, e As Object)
         Dim employeeID As Integer
         Dim EmpCol As New EmployeeCollection
@@ -295,6 +309,50 @@ Public Class _Default
         DateTimeLabel.Text = DateTime
         Panel.ContentTemplateContainer.Controls.Add(DateTimeLabel)
         Panel.Update()
+        SetNotificationStatus("2", Thread, employeeid)
         Return Nothing
     End Function
+    Public Function SendNotification(ThreadID As Integer, EmployeeID As Integer)
+        Dim ThreadUsers As New ArrayList
+        Dim EmpColl As New EmployeeCollection
+        Dim ThreadString As String
+        Dim NotificationString As New StringBuilder
+        Dim Message As String = "You have a new Message"
+        ThreadString = "Users in this thread:"
+        ThreadUsers = WHLClasses.MySql.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
+        For Each ThreadUser As ArrayList In ThreadUsers
+            ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName
+        Next
+
+        'NotificationString.Append("<script type=""text/javascript"">" + vbNewLine)
+        NotificationString.Append("spawnNotification(""" + Message + """,""" + ThreadString + """);" + vbNewLine)
+        'NotificationString.Append("</script>")
+        ClientScript.RegisterClientScriptBlock(Me.GetType, "memes", NotificationString.ToString, True)
+        Return Nothing
+    End Function
+
+    Public Sub GetNotifications(EmployeeID)
+        'Here we check for the Notification Status. For each thread that is new we send a new notification. 0 is not notified, 1 is NotificationSent, 2 is NotificationRead
+        'We send a notification on initial start up if the notification is sent but not read.
+        Dim Notifications As New ArrayList
+        Notifications = WHLClasses.MySql.SelectData("SELECT * FROM whldata.messenger_threads WHERE (participantid = '" + EmployeeID.ToString + "') ORDER BY idmessenger_threads DESC ;")
+        For Each Thread As ArrayList In Notifications
+            If Convert.ToInt32(Thread(3)) = 0 Then
+                SendNotification(Thread(3), EmployeeID)
+                WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='1' WHERE threadid ='" + Thread(1).ToString + "';")
+            End If
+        Next
+
+
+    End Sub
+    Protected Sub Notifications_Tick(sender As Object, e As EventArgs) Handles Notifications.Tick
+        Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
+        EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
+        GetNotifications(EmployeeID)
+        ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveUsers)
+    End Sub
+    Public Sub SetNotificationStatus(Notified As Integer, ThreadID As Integer, EmployeeID As Integer)
+        WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified + "' WHERE threadid ='" + ThreadID + "' AND participantid='" + EmployeeID + "';")
+
+    End Sub
 End Class
