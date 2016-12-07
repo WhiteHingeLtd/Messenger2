@@ -9,8 +9,7 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
         Dim WhichThreads As New ArrayList
-        Session("Load") = "Threads"
-        SendNotification(Session("ActiveThreadID"), EmployeeID)
+        'SendNotification(Session("ActiveThreadID"), EmployeeID)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         Try
             Dim SessionThreadID As String = Session("ActiveThreadID")
@@ -166,17 +165,27 @@ Public Class _Default
         ThreadList.Update()
         Return Nothing
     End Function
-    Public Function ListThreadUsers(ThreadID As Integer, Label As Label)
+    Public Function ListThreadUsers(ThreadID As Integer, Panel As UpdatePanel)
         Dim ThreadUsers As New ArrayList
         Dim EmpColl As New EmployeeCollection
         Dim ThreadString As String
         ThreadString = "Users in this thread:<br>"
-        ThreadUsers = WHLClasses.MySQL.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
+        ThreadUsers = WHLClasses.MySql.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
         For Each ThreadUser As ArrayList In ThreadUsers
-            ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName + "<br> "
+            Dim UserPanel As New Panel
+            Dim UserName1 As New Label
+            Dim RemoveUser As New LinkButton
+
+            UserName1.Text = EmpCol.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName
+
+            RemoveUser.Text = "Remove User"
+            RemoveUser.ID = "Remove" + ThreadUser(0)
+            AddHandler RemoveUser.Click, AddressOf ProcessRemoveButton
+            UserPanel.Controls.Add(UserName1)
+            UserPanel.Controls.Add(RemoveUser)
+            Panel.ContentTemplateContainer.Controls.Add(UserPanel)
+
         Next
-        ThreadString.TrimEnd(",")
-        Label.Text = ThreadString
         Return Nothing
     End Function
     Public Function UpdateContacts(ContactList As UpdatePanel, EmployeeID As Integer)
@@ -219,10 +228,21 @@ Public Class _Default
     Public Sub ProcessContactButton(Sender As LinkButton, e As Object)
         Dim employeeID As Integer
         Dim EmpCol As New EmployeeCollection
+
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         employeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         Dim CreateNewThread1 As String = Sender.ID + employeeID.ToString
-        Session("ActiveThreadID") = Convert.ToInt32(CreateNewThread1)
+
+
+        Dim GetLastMessage As ArrayList
+        Dim LastThread As Integer
+        Dim NewThread As Integer
+        GetLastMessage = WHLClasses.MySql.SelectData("SELECT ThreadID FROM whldata.messenger_threads ORDER BY ThreadID DESC LIMIT 1;")
+        For Each Message As ArrayList In GetLastMessage
+            LastThread = Convert.ToInt32(Message(0))
+            NewThread = LastThread + 1
+        Next
+        Session("ActiveThreadID") = Convert.ToInt32(NewThread)
         CreateNewThread(Sender.ID)
         CreateNewThread(employeeID)
 
@@ -234,13 +254,11 @@ Public Class _Default
         Return Nothing
     End Function
     Public Function AddToThread(ThreadID As Integer, EmployeeID As Integer)
-        Dim OldThreadID As String = ThreadID.ToString
-        Dim NewActiveID As String = ThreadID.ToString + EmployeeID.ToString
-        ThreadID = Convert.ToInt32(NewActiveID)
-        Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_threads (ThreadID, participantid ) VALUES ('" + ThreadID.ToString + "','" + EmployeeID.ToString + "');")
-        Dim responseInsert2 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_threads set ThreadID='" + ThreadID.ToString + "' WHERE ThreadID ='" + OldThreadID.ToString + "';")
-        Dim responseInsert3 As Object = WHLClasses.MySQL.insertUpdate("UPDATE whldata.messenger_messages set threadid='" + ThreadID.ToString + "' WHERE threadid ='" + OldThreadID.ToString + "';")
-
+        If CheckForUserInThread(EmployeeID, ThreadID) = False Then
+            Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("INSERT INTO whldata.messenger_threads (ThreadID, participantid ) VALUES ('" + ThreadID.ToString + "','" + EmployeeID.ToString + "');")
+        Else
+            MsgBox("This user is already in this thread")
+        End If
         Return Nothing
     End Function
     Public Function RemoveFromThread(RemovedID As Integer, ThreadID As Integer)
@@ -349,10 +367,22 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         GetNotifications(EmployeeID)
-        ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveUsers)
+        ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), NotificationPanel)
     End Sub
     Public Sub SetNotificationStatus(Notified As Integer, ThreadID As Integer, EmployeeID As Integer)
         WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified + "' WHERE threadid ='" + ThreadID + "' AND participantid='" + EmployeeID + "';")
+
+    End Sub
+    Public Sub ProcessRemoveButton(Sender As LinkButton, e As Object)
+        Dim RemoveButtonString As String = Sender.ID
+        RemoveButtonString = RemoveButtonString.Replace("Remove", "")
+        RemoveFromThread(Convert.ToInt32(Session("ActiveThreadID")), RemoveButtonString)
+    End Sub
+    Public Sub RemoveFromThread(ThreadID, RemovedID)
+        If CheckForUserInThread(RemovedID, ThreadID) = True Then
+            Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("DELETE FROM whldata.messenger_threads WHERE ThreadID='" + ThreadID.ToString + "' AND participantid='" + RemovedID.ToString + "';")
+        Else
+        End If
 
     End Sub
 End Class
