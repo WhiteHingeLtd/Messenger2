@@ -9,15 +9,20 @@ Public Class _Default
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         Dim EmployeesInThread As String = ""
         Dim WhichThreads As New ArrayList
+        If Session("ActiveThreadID") = Nothing Then
+            Session("ActiveThreadID") = 0
+        End If
         'SendNotification(Session("ActiveThreadID"), EmployeeID)
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        Try
-            Dim SessionThreadID As String = Session("ActiveThreadID")
-            LoadMessages(UpdatePanel2, Convert.ToInt32(SessionThreadID), EmployeeID)
+        If Convert.ToInt32(Session("ActiveThreadID")) > 0 Then
+            Try
+                Dim SessionThreadID As String = Session("ActiveThreadID")
+                LoadMessages(UpdatePanel2, Convert.ToInt32(SessionThreadID), EmployeeID)
 
-            UpdatePanel2.Update()
-        Catch ex As Exception
-        End Try
+                UpdatePanel2.Update()
+            Catch ex As Exception
+            End Try
+        End If
         'ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveUsers)
         'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
@@ -56,7 +61,13 @@ Public Class _Default
     End Sub
     Public Sub ProcessButton(Sender As LinkButton, e As Object)
         Session("ActiveThreadID") = Convert.ToInt32(Sender.ID)
+        Try
+            Dim SessionThreadID As String = Session("ActiveThreadID")
+            LoadMessages(UpdatePanel2, Convert.ToInt32(SessionThreadID), EmployeeID)
 
+            UpdatePanel2.Update()
+        Catch ex As Exception
+        End Try
     End Sub
 
     Protected Sub Send_Click(sender As Object, e As EventArgs) Handles Send.Click
@@ -370,10 +381,9 @@ Public Class _Default
         ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), NotificationPanel)
     End Sub
     Public Sub SetNotificationStatus(Notified As Integer, ThreadID As Integer, EmployeeID As Integer)
-        WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified + "' WHERE threadid ='" + ThreadID + "' AND participantid='" + EmployeeID + "';")
-
+        Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified.ToString + "' WHERE threadid ='" + ThreadID.ToString + "' AND participantid='" + EmployeeID.ToString + "';")
     End Sub
-    Public Sub ProcessRemoveButton(Sender As LinkButton, e As Object)
+    Public Sub ProcessRemoveButton(Sender As Object, e As Object)
         Dim RemoveButtonString As String = Sender.ID
         RemoveButtonString = RemoveButtonString.Replace("Remove", "")
         RemoveFromThread(Convert.ToInt32(Session("ActiveThreadID")), RemoveButtonString)
