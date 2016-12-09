@@ -12,10 +12,12 @@ Public Class _Default
         If Session("ActiveThreadID") = Nothing Then
             Session("ActiveThreadID") = 0
         End If
+
         'SendNotification(Session("ActiveThreadID"), EmployeeID)
 
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         GetNotifications(EmployeeID)
+        Session("EmployeeID") = EmployeeID
         If Convert.ToInt32(Session("ActiveThreadID")) > 0 Then
             Try
                 Dim SessionThreadID As String = Session("ActiveThreadID")

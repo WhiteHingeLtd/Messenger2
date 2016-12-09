@@ -1,7 +1,24 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="Messenger2._Default" %>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script type ="text/javascript" src="Notifications.js">NotifyMe();</script>
-    
+    <script type="text/javascript">
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        prm.add_beginRequest(beginRequest);
+
+        function beginRequest()
+        {
+            prm._scrollPosition = null;
+        }
+        var threadid = '';
+        var employee = '';
+        threadid = <%= Session("ActiveThreadID")%>;
+        employee = <%= Session("EmployeeID")%>;
+        console.log(threadid);
+        console.log(employee);
+    </script>
     <div style="margin-right: 120px">&nbsp;<table border="0">
     <tbody>
       <tr>
