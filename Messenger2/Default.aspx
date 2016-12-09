@@ -11,13 +11,13 @@
             <asp:Button ID="Threads" runat="server" Text="Threads" />
             <asp:UpdatePanel ID="ContactsPanel" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
-                    <asp:Timer ID="ContactsTimer" runat="server" Interval="50">
+                    <asp:Timer ID="ContactsTimer" runat="server" Interval="50" ClientIDMode="AutoID">
                     </asp:Timer>
                 </ContentTemplate>
             </asp:UpdatePanel>
           </th>
         <td style="height: 206px; width: 748px;">
-            <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
+            <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server" ClientIDMode="AutoID">
                    <ContentTemplate>
                        <asp:Timer ID="ThreadTimer" runat="server" Interval="50">
                        </asp:Timer>
@@ -41,7 +41,7 @@
                 <div>
                     <asp:UpdatePanel ID="NotificationPanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:Timer ID="Notifications" runat="server" Interval="60">
+                            <asp:Timer ID="Notifications" runat="server" Interval="60" ClientIDMode="AutoID">
                             </asp:Timer>
                             <asp:Label ID="ActiveUsers" runat="server" Text="Active Users:"></asp:Label>
                         </ContentTemplate>

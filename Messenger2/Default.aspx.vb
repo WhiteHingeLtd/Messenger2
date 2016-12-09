@@ -13,7 +13,9 @@ Public Class _Default
             Session("ActiveThreadID") = 0
         End If
         'SendNotification(Session("ActiveThreadID"), EmployeeID)
+
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
+        GetNotifications(EmployeeID)
         If Convert.ToInt32(Session("ActiveThreadID")) > 0 Then
             Try
                 Dim SessionThreadID As String = Session("ActiveThreadID")
@@ -356,7 +358,7 @@ Public Class _Default
         'NotificationString.Append("<script type=""text/javascript"">" + vbNewLine)
         NotificationString.Append("spawnNotification(""" + Message + """,""" + ThreadString + """);" + vbNewLine)
         'NotificationString.Append("</script>")
-        ClientScript.RegisterClientScriptBlock(Me.GetType, "memes", NotificationString.ToString, True)
+        ScriptManager.RegisterClientScriptBlock(Page, Me.GetType, "memes", NotificationString.ToString, True)
         Return Nothing
     End Function
 
@@ -367,7 +369,7 @@ Public Class _Default
         Notifications = WHLClasses.MySql.SelectData("SELECT * FROM whldata.messenger_threads WHERE (participantid = '" + EmployeeID.ToString + "') ORDER BY idmessenger_threads DESC ;")
         For Each Thread As ArrayList In Notifications
             If Convert.ToInt32(Thread(3)) = 0 Then
-                SendNotification(Thread(3), EmployeeID)
+                SendNotification(Thread(1), EmployeeID)
                 WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='1' WHERE threadid ='" + Thread(1).ToString + "';")
             End If
         Next

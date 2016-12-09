@@ -31,10 +31,11 @@
         });
         function spawnNotification(theBody, theTitle) {
             var options = {
+                //icon: http://apps.ad.whitehinge.com/memes2/Default/favicon.ico,
                 body: theBody
             }
             var n = new Notification(theTitle, options);
-            setTimeout(n.close.bind(n), 4000);
+            setTimeout(n.close.bind(n), 6000);
         }
         </script>
     <form runat="server">
