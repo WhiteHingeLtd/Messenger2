@@ -16,7 +16,7 @@ Public Class _Default
         'SendNotification(Session("ActiveThreadID"), EmployeeID)
 
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        GetNotifications(EmployeeID)
+        'GetNotifications(EmployeeID)
         Session("EmployeeID") = EmployeeID
         If Convert.ToInt32(Session("ActiveThreadID")) > 0 Then
             Try
@@ -372,51 +372,51 @@ Public Class _Default
         DateTimeLabel.Text = DateTime
         Panel.ContentTemplateContainer.Controls.Add(DateTimeLabel)
         Panel.Update()
-        SetNotificationStatus("2", Thread, employeeid)
+        'SetNotificationStatus("2", Thread, employeeid)
         Return Nothing
     End Function
-    Public Function SendNotification(ThreadID As Integer, EmployeeID As Integer)
-        Dim ThreadUsers As New ArrayList
-        Dim EmpColl As New EmployeeCollection
-        Dim ThreadString As String
-        Dim NotificationString As New StringBuilder
-        Dim Message As String = "You have a new Message"
-        ThreadString = "Users in this thread:"
-        ThreadUsers = WHLClasses.MySql.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
-        For Each ThreadUser As ArrayList In ThreadUsers
-            ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName
-        Next
+    'Public Function SendNotification(ThreadID As Integer, EmployeeID As Integer)
+    '    Dim ThreadUsers As New ArrayList
+    '    Dim EmpColl As New EmployeeCollection
+    '    Dim ThreadString As String
+    '    Dim NotificationString As New StringBuilder
+    '    Dim Message As String = "You have a new Message"
+    '    ThreadString = "Users in this thread:"
+    '    ThreadUsers = WHLClasses.MySql.SelectData("SELECT participantid FROM whldata.messenger_threads WHERE (ThreadID=" + ThreadID.ToString + ") ORDER BY idmessenger_threads DESC ;")
+    '    For Each ThreadUser As ArrayList In ThreadUsers
+    '        ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName
+    '    Next
 
-        'NotificationString.Append("<script type=""text/javascript"">" + vbNewLine)
-        NotificationString.Append("spawnNotification(""" + Message + """,""" + ThreadString + """);" + vbNewLine)
-        'NotificationString.Append("</script>")
-        ScriptManager.RegisterClientScriptBlock(Page, Me.GetType, "memes", NotificationString.ToString, True)
-        Return Nothing
-    End Function
+    '    'NotificationString.Append("<script type=""text/javascript"">" + vbNewLine)
+    '    NotificationString.Append("spawnNotification(""" + Message + """,""" + ThreadString + """);" + vbNewLine)
+    '    'NotificationString.Append("</script>")
+    '    ScriptManager.RegisterClientScriptBlock(Page, Me.GetType, "memes", NotificationString.ToString, True)
+    '    Return Nothing
+    'End Function
 
-    Public Sub GetNotifications(EmployeeID)
-        'Here we check for the Notification Status. For each thread that is new we send a new notification. 0 is not notified, 1 is NotificationSent, 2 is NotificationRead
-        'We send a notification on initial start up if the notification is sent but not read.
-        Dim Notifications As New ArrayList
-        Notifications = WHLClasses.MySql.SelectData("SELECT * FROM whldata.messenger_threads WHERE (participantid = '" + EmployeeID.ToString + "') ORDER BY idmessenger_threads DESC ;")
-        For Each Thread As ArrayList In Notifications
-            If Convert.ToInt32(Thread(3)) = 0 Then
-                SendNotification(Thread(1), EmployeeID)
-                WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='1' WHERE threadid ='" + Thread(1).ToString + "';")
-            End If
-        Next
+    'Public Sub GetNotifications(EmployeeID)
+    '    'Here we check for the Notification Status. For each thread that is new we send a new notification. 0 is not notified, 1 is NotificationSent, 2 is NotificationRead
+    '    'We send a notification on initial start up if the notification is sent but not read.
+    '    Dim Notifications As New ArrayList
+    '    Notifications = WHLClasses.MySql.SelectData("SELECT * FROM whldata.messenger_threads WHERE (participantid = '" + EmployeeID.ToString + "') ORDER BY idmessenger_threads DESC ;")
+    '    For Each Thread As ArrayList In Notifications
+    '        If Convert.ToInt32(Thread(3)) = 0 Then
+    '            SendNotification(Thread(1), EmployeeID)
+    '            WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='1' WHERE threadid ='" + Thread(1).ToString + "';")
+    '        End If
+    '    Next
 
 
-    End Sub
+    'End Sub
     Protected Sub Notifications_Tick(sender As Object, e As EventArgs) Handles Notifications.Tick
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        GetNotifications(EmployeeID)
+        'GetNotifications(EmployeeID)
         ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), NotificationPanel)
     End Sub
-    Public Sub SetNotificationStatus(Notified As Integer, ThreadID As Integer, EmployeeID As Integer)
-        Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified.ToString + "' WHERE threadid ='" + ThreadID.ToString + "' AND participantid='" + EmployeeID.ToString + "';")
-    End Sub
+    'Public Sub SetNotificationStatus(Notified As Integer, ThreadID As Integer, EmployeeID As Integer)
+    '    Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("UPDATE whldata.messenger_threads set Notified='" + Notified.ToString + "' WHERE threadid ='" + ThreadID.ToString + "' AND participantid='" + EmployeeID.ToString + "';")
+    'End Sub
     Public Sub ProcessRemoveButton(Sender As Object, e As Object)
         Dim RemoveButtonString As String = Sender.ID
         RemoveButtonString = RemoveButtonString.Replace("Remove", "")
