@@ -76,25 +76,36 @@ Public Class _Default
 
     Protected Sub Send_Click(sender As Object, e As EventArgs) Handles Send.Click
         Dim UserNameReplaced As String = My.User.Name.Replace("AD\", "")
-        EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
         Dim ActiveThreadIDString As String = Session("ActiveThreadID")
-        If Not IsNothing(TextBox1.Text) Then
-            SendMessage(TextBox1, EmployeeID, Convert.ToInt32(ActiveThreadIDString))
+        EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
+        Dim uTime As Integer
+        uTime = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+        If FileUpload1.Visible = True Then
+            If FileUpload1.HasFile Then
+                Try
+                    FileUpload1.SaveAs("C:\Data Storage\Intra\Uploads\" & uTime.ToString &
+                   FileUpload1.FileName)
+                    TextBox1.Text = "http://apps.ad.whitehinge.com/Uploads/" & uTime.ToString & FileUpload1.FileName
+
+
+                    Dim theText As String = "http://apps.ad.whitehinge.com/Uploads/" & uTime.ToString & FileUpload1.FileName
+                    Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("INSERT INTO whldata.messenger_messages (participantid, messagecontent, timestamp, threadid ) VALUES (" + EmployeeID.ToString + ",'" + theText.ToString + "','" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + Session("ActiveThreadID").ToString + ");")
+                Catch ex As Exception
+                    TextBox1.Text = "ERROR: " & ex.Message.ToString()
+                End Try
+            Else
+                TextBox1.Text = "You have not specified a file."
+            End If
+        Else
+
+            If Not IsNothing(TextBox1.Text) Then
+                SendMessage(TextBox1, EmployeeID, Convert.ToInt32(ActiveThreadIDString))
+            End If
+
         End If
-        TextBox1.Text = ""
+        TextBox1.Text = String.Empty
         UpdatePanel2.Update()
         ContactsPanel.Update()
-        'Dim theText As String = TextBox1.Text.Replace("\", "\\").Replace("'", "\'").Replace(vbCrLf, " ").Replace(vbLf, " ").Replace(vbCr, " ")
-
-        'Dim responseInsert As Object = WHLClasses.MySQL.insertUpdate("INSERT INTO whldata.messenger_messages (participantid, messagecontent, timestamp, threadid ) VALUES (" + EmployeeID.ToString + ",'" + theText + "','" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + ThreadID.ToString + ");")
-
-        ''If Not IsNumeric(responseInsert) Then
-        ''MsgBox(responseInsert)
-        ''End If
-        'TextBox1.Focus()
-        'TextBox1.Text = ""
-        ''UpdateNewMessages()
-        'TextBox1.Text = responseInsert.ToString
     End Sub
 
     Public Sub Contacts_Click(sender As Object, e As EventArgs) Handles Contacts.Click
@@ -297,6 +308,8 @@ Public Class _Default
         Dim ThreadUsers As New ArrayList
         Dim EmployeeName As String = ""
         Dim ThreadString As String = ""
+        Dim CurrentDirectory As String = "http://apps.ad.whitehinge.com/Uploads/"
+
         ThreadUpdates = WHLClasses.MySQL.SelectData("Select * from whldata.messenger_messages where threadid = '" + Thread.ToString + "' order by timestamp DESC;")
         For Each ThreadLoad As ArrayList In ThreadUpdates
             If employeeid = Convert.ToInt32(ThreadLoad(1)) Then
@@ -304,32 +317,49 @@ Public Class _Default
                 Dim UserLabel As New Label
                 Dim Threadlabel As New Label
                 Dim HoldingPanel As New Panel
+                Dim Image As New Image
+                If ThreadString.Contains(CurrentDirectory) Then
+                    Image.ImageUrl = ThreadLoad(2).ToString
+                Else
+                    Threadlabel.Text = ThreadString
+                End If
+
                 UserLabel.CssClass = "User"
                 Threadlabel.CssClass = "UserMessage"
                 HoldingPanel.CssClass = "UserPanel"
+                Image.CssClass = "UserImage"
 
                 UserLabel.Text = EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadLoad(1))).FullName
-                Threadlabel.Text = ThreadString
+
 
                 HoldingPanel.Controls.Add(UserLabel)
                 HoldingPanel.Controls.Add(Threadlabel)
+                HoldingPanel.Controls.Add(Image)
                 Panel.ContentTemplateContainer.Controls.Add(HoldingPanel)
                 ThreadString = ""
                 Panel.Update()
             Else
-                ThreadString = ":" + ThreadLoad(2).ToString
+                ThreadString = ": " + ThreadLoad(2).ToString
                 Dim UserLabel As New Label
                 Dim Threadlabel As New Label
                 Dim HoldingPanel As New Panel
+                Dim Image As New Image
+                If ThreadString.Contains(CurrentDirectory) Then
+                    Image.ImageUrl = ThreadLoad(2).ToString
+                Else
+                    Threadlabel.Text = ThreadString
+                End If
                 UserLabel.CssClass = "Other"
                 Threadlabel.CssClass = "OtherMessage"
                 HoldingPanel.CssClass = "OtherPanel"
+                Image.CssClass = "OtherImage"
 
                 UserLabel.Text = EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadLoad(1))).FullName
                 Threadlabel.Text = ThreadString
 
                 HoldingPanel.Controls.Add(UserLabel)
                 HoldingPanel.Controls.Add(Threadlabel)
+                HoldingPanel.Controls.Add(Image)
                 Panel.ContentTemplateContainer.Controls.Add(HoldingPanel)
                 ThreadString = ""
                 Panel.Update()
@@ -397,6 +427,32 @@ Public Class _Default
             Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("DELETE FROM whldata.messenger_threads WHERE ThreadID='" + ThreadID.ToString + "' AND participantid='" + RemovedID.ToString + "';")
         Else
         End If
+
+    End Sub
+
+    Protected Sub UploadPhoto_Click(sender As Object, e As EventArgs) Handles UploadPhoto.Click
+        Dim uTime As Integer
+        uTime = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+        If FileUpload1.Visible = True Then
+            If FileUpload1.HasFile Then
+                Try
+                    FileUpload1.SaveAs("C:\Data Storage\Intra\Uploads\" & uTime.ToString &
+                   FileUpload1.FileName)
+                    TextBox1.Text = "http://apps.ad.whitehinge.com/Uploads/" & uTime.ToString & FileUpload1.FileName
+
+
+                    Dim theText As String = "http://apps.ad.whitehinge.com/Uploads/" & uTime.ToString & FileUpload1.FileName
+                    Dim responseInsert As Object = WHLClasses.MySql.insertUpdate("INSERT INTO whldata.messenger_messages (participantid, messagecontent, timestamp, threadid ) VALUES (" + EmployeeID.ToString + ",'" + theText.ToString + "','" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + Session("ActiveThreadID").ToString + ");")
+                Catch ex As Exception
+                    TextBox1.Text = "ERROR: " & ex.Message.ToString()
+                End Try
+            Else
+                TextBox1.Text = "You have not specified a file."
+            End If
+        Else
+            FileUpload1.Visible = True
+        End If
+
 
     End Sub
 End Class
