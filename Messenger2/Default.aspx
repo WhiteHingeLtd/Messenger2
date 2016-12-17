@@ -49,6 +49,8 @@
       <tr>
         <th scope="row" style="width: 512px">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                </ContentTemplate>
             </asp:UpdatePanel>
           </th>
         <td style="width: 748px">
