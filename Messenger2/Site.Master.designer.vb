@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class SiteMaster
     
     '''<summary>
+    '''UserName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UserName As Global.System.Web.UI.WebControls.HiddenField
+    
+    '''<summary>
+    '''UserNameMobile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UserNameMobile As Global.System.Web.UI.WebControls.HiddenField
+    
+    '''<summary>
     '''MainContent control.
     '''</summary>
     '''<remarks>

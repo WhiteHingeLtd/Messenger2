@@ -58,12 +58,12 @@
             <asp:TextBox ID="TextBox1" runat="server" Height="23px" Width="424px"></asp:TextBox>
             <asp:Button ID="Send" runat="server" Text="Send" ValidateRequestMode="Disabled" style="margin-bottom: 16" />
                 <asp:FileUpload ID="FileUpload1" runat="server" Visible="False" />
-<%--                <asp:RegularExpressionValidator 
+                <asp:RegularExpressionValidator 
                  id="RegularExpressionValidator1" runat="server" 
                  ErrorMessage="Only image files are allowed!" 
-                 ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))<asp:Image runat="server"></asp:Image>
+                 ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))
                     +(.jpg|.JPEG|.jpeg|.JPG|.png|.PNG|.tiff|.tif|.TIFF|.TIF|.gif|.GIF|.bmp|.BMP)$" 
-                 ControlToValidate="FileUpload1"></asp:RegularExpressionValidator>--%>
+                 ControlToValidate="FileUpload1"></asp:RegularExpressionValidator>
                 <asp:Button ID="UploadPhoto" runat="server" Text="Send Photo" Width="107px" />
                 <div>
                     <asp:UpdatePanel ID="NotificationPanel" runat="server" UpdateMode="Conditional">
