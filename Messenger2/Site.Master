@@ -17,8 +17,8 @@
 
 </head>
 <body>
-    <asp:HiddenField ID="UserName" runat="server" />
-    <asp:HiddenField ID="UserNameMobile" runat="server" />
+<%--    <asp:HiddenField ID="UserName" runat="server" />
+    <asp:HiddenField ID="UserNameMobile" runat="server" />--%>
     <script type="text/javascript">
         Notification.requestPermission().then(function (result) {
             if (result === 'denied') {

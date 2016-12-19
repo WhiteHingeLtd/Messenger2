@@ -1,5 +1,5 @@
 ﻿Imports WHLClasses
-
+Imports System.Collections.Generic
 Public Class _Default
     Inherits Page
 
