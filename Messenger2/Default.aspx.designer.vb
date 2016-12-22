@@ -131,6 +131,15 @@ Partial Public Class _Default
     Protected WithEvents Notifications As Global.System.Web.UI.Timer
     
     '''<summary>
+    '''Button1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''ActiveUsers control.
     '''</summary>
     '''<remarks>

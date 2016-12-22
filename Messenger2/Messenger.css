@@ -1,0 +1,30 @@
+﻿body {
+}
+
+User {
+        font-family: verdana;
+    font-size:20px;
+    font-weight:bold;
+}
+UserMessage {
+    font-family: verdana;
+    font-size:12px
+}
+UserPanel {
+}
+UserImage {
+}
+Other {
+    font-family: verdana;
+    font-size:20px;
+    font-weight:bold;
+
+}
+OtherMessage {
+    font-family: verdana;
+    font-size:12px
+}
+OtherPanel {
+}
+OtherImage {
+}

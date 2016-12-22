@@ -1,6 +1,35 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="Messenger2._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <%--<link href="Messenger.css" rel="stylesheet" type="text/css" />--%>
+    <style type="text/css">.User {
+        font-family: verdana;
+    font-size:20px;
+    font-weight:bold;
+}
+.UserMessage {
+    font-family: verdana;
+    font-size:12px
+}
+.UserPanel {
+}
+.UserImage {
+}
+.Other {
+    font-family: "Comic Sans MS";
+    font-size:20px;
+
+}
+.OtherMessage {
+    font-family: "Comic Sans MS";
+    font-size:12px
+}
+.OtherPanel {
+}
+.OtherImage {
+}
+
+</style>
     <script type ="text/javascript" src="Notifications.js">NotifyMe();</script>
     <script type="text/javascript">
 
@@ -70,6 +99,7 @@
                         <ContentTemplate>
                             <asp:Timer ID="Notifications" runat="server" Interval="60" ClientIDMode="AutoID">
                             </asp:Timer>
+                            <asp:Button ID="Button1" runat="server" Text="Start/Stop Refresh" Width="139px" />
                             <asp:Label ID="ActiveUsers" runat="server" Text="Active Users:"></asp:Label>
                         </ContentTemplate>
                     </asp:UpdatePanel>

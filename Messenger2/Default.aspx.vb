@@ -446,4 +446,21 @@ Public Class _Default
 
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If ThreadTimer.Enabled = False Then
+            ThreadTimer.Enabled = True
+        Else
+            ThreadTimer.Enabled = False
+        End If
+        If ContactsTimer.Enabled = False Then
+            ContactsTimer.Enabled = True
+        Else
+            ContactsTimer.Enabled = False
+        End If
+        If Notifications.Enabled = False Then
+            Notifications.Enabled = True
+        Else
+            Notifications.Enabled = False
+        End If
+    End Sub
 End Class
