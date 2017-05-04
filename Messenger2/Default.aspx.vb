@@ -12,11 +12,13 @@ Public Class _Default
         If Session("ActiveThreadID") = Nothing Then
             Session("ActiveThreadID") = 0
         End If
+        If Session("Load") = Nothing Then
+            Session("Load") = "Threads"
+        End If
         Session("UserAgent") = Request.ServerVariables("HTTP_USER_AGENT")
-        'SendNotification(Session("ActiveThreadID"), EmployeeID)
 
         EmployeeID = EmpCol.FindEmployeeByADUser(UserNameReplaced).PayrollId
-        'GetNotifications(EmployeeID)
+
         Session("EmployeeID") = EmployeeID
         If Convert.ToInt32(Session("ActiveThreadID")) > 0 Then
             Try
@@ -27,8 +29,6 @@ Public Class _Default
             Catch ex As Exception
             End Try
         End If
-        'ListThreadUsers(Convert.ToInt32(Session("ActiveThreadID")), ActiveUsers)
-        'If ThreadsEnabled = False Then
         If Session("Load") = "Threads" Then
             UpdateThreads(ContactsPanel, EmployeeID)
             Session("Load") = "Threads"
@@ -100,7 +100,6 @@ Public Class _Default
 
         Session("Load") = "Contacts"
         ContactsPanel.Update()
-        'UpdateContacts(ThreadPanel, EmployeeID)
     End Sub
 
     Public Sub Threads_Click(sender As Object, e As EventArgs) Handles Threads.Click
@@ -155,15 +154,17 @@ Public Class _Default
                     ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName + " "
                 Next
                 Try
+                    Dim ThreadPanel1 As New Panel
                     Dim LinkButton As New LinkButton
                     Dim labelspace As New Label
+                    LinkButton.CssClass = "ThreadButton"
                     ThreadString.TrimEnd()
-                    labelspace.Text = "<br>"
+                    'labelspace.Text = "<br>"
                     LinkButton.ID = Thread(1).ToString
                     LinkButton.Text = ThreadString
                     AddHandler LinkButton.Click, AddressOf ProcessButton
-                    ThreadList.ContentTemplateContainer.Controls.Add(LinkButton)
-                    ThreadList.ContentTemplateContainer.Controls.Add(labelspace)
+                    ThreadPanel1.Controls.Add(LinkButton)
+                    ThreadList.ContentTemplateContainer.Controls.Add(ThreadPanel1)
                     ThreadString = ""
                     ThreadList.Update()
                 Catch Ex As Exception
@@ -214,13 +215,13 @@ Public Class _Default
 
                     ContactName = employee.FullName
                     Dim ContactButton As New LinkButton
-                    Dim labelspace As New Label
                     Dim ContactPanel As New Panel
                     Dim AddToThread As New LinkButton
+                    ContactButton.CssClass = "ContactButton"
+                    AddToThread.CssClass = "ThreadAdd"
                     AddToThread.Text = "Add To Current Thread"
                     AddToThread.ID = "AddTo" + employee.PayrollId.ToString
                     ContactButton.ID = employee.PayrollId.ToString
-                    labelspace.Text = "<br>"
                     ContactButton.Text = ContactName
                     AddHandler ContactButton.Click, AddressOf ProcessContactButton
                     AddHandler AddToThread.Click, AddressOf ProcessAddButton
@@ -343,7 +344,6 @@ Public Class _Default
                 Image.CssClass = "OtherImage"
 
                 UserLabel.Text = EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadLoad(1))).FullName
-                Threadlabel.Text = ThreadString
 
                 HoldingPanel.Controls.Add(UserLabel)
                 HoldingPanel.Controls.Add(Threadlabel)
@@ -374,9 +374,7 @@ Public Class _Default
             ThreadString = ThreadString + EmpColl.FindEmployeeByID(Convert.ToInt32(ThreadUser(0))).FullName
         Next
 
-        'NotificationString.Append("<script type=""text/javascript"">" + vbNewLine)
         NotificationString.Append("spawnNotification(""" + Message + """,""" + ThreadString + """);" + vbNewLine)
-        'NotificationString.Append("</script>")
         ScriptManager.RegisterClientScriptBlock(Page, Me.GetType, "memes", NotificationString.ToString, True)
         Return Nothing
     End Function

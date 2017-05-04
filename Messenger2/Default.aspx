@@ -52,7 +52,7 @@
     <tbody>
       <tr>
            
-        <th scope="row" style="width: 512px; height: 206px;" onload="notifyMe()">
+        <th scope="row" onload="notifyMe()" id="LeftTop">
             <asp:Button ID="Contacts" runat="server" Text="Contacts" />
             <asp:Button ID="Threads" runat="server" Text="Threads" />
             <asp:UpdatePanel ID="ContactsPanel" UpdateMode="Conditional" runat="server">
@@ -62,7 +62,7 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
           </th>
-        <td style="height: 206px; width: 748px;">
+        <td id="RightTop">
             <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server" ClientIDMode="AutoID">
                    <ContentTemplate>
                        <asp:Timer ID="ThreadTimer" runat="server" Interval="50">
@@ -76,13 +76,13 @@
 
       </tr>
       <tr>
-        <th scope="row" style="width: 512px">
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <th scope="row" id="LeftBottom">
+            <asp:UpdatePanel ID="ContactsPanel1" runat="server">
                 <ContentTemplate>
                 </ContentTemplate>
             </asp:UpdatePanel>
           </th>
-        <td style="width: 748px">
+        <td id="RightBottom">
             <div __designer:mapid="16">
             <asp:TextBox ID="TextBox1" runat="server" Height="23px" Width="424px"></asp:TextBox>
             <asp:Button ID="Send" runat="server" Text="Send" ValidateRequestMode="Disabled" style="margin-bottom: 16" />

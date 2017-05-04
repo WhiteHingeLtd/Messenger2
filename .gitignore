@@ -60,3 +60,7 @@ Messenger2/obj*
 .vs/Messenger2/v14/.suo
 .vs/Messenger2/v14/.suo
 *.suo
+Messenger2_.psess
+*.vspx
+Messenger2/My Project/PublishProfiles/Test Profile.pubxml.user
+*.user

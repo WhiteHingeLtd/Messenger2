@@ -7,11 +7,8 @@ Public Class SiteMaster
         Dim CurrentEmp As Employee
         Try
             CurrentEmp = emps.FindEmployeeByADUser(My.User.Name.Replace("AD\", ""))
-            'UserName.Value = CurrentEmp.FullName
-            'UsernameLabel.Text = CurrentEmp.FullName + " - EC & " + My.User.CurrentPrincipal.Identity.AuthenticationType
             Session("User") = CurrentEmp
         Catch ex As Exception
-            'UsernameLabel.Text = My.User.Name + " - " + My.User.CurrentPrincipal.Identity.AuthenticationType + " | SEARCHED " + My.User.Name.Replace("AD\", "")
         End Try
 
     End Sub
